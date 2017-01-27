@@ -4,5 +4,5 @@ The teaming exercise that we did on the first day was a good idea that I think w
 
 In addition, I think that the teaming exercise could have been improved by gauging peoples skill level at C so that people with more experience could tailor the sprints to more favor deeper learning of their project area. While that worked out for me in the end, it definitely lead to extra time spent during the teaming phase that could have been avoided or clarified. Overall, I think the teaming exercise, while pressure filled did yield good results. 
 
-As for our project, I am really enjoying the direction our group has taken and am looking forward to working hard to learn deeply about such C exploits. I also am really liking the fact that we can zoom through the more basic C stuff instead of having to go more slowly in a lecture based setting, definitely helps foster intrinsic motivation and passion for the class material!
+As for our project, I am really enjoying the direction our group has taken and am looking forward to working hard to learn deeply about such C exploits. I also am really liking the fact that we can concentrate on the parts most interesting to us, definitely helps foster intrinsic motivation and passion for the class material!
 
