@@ -5,18 +5,31 @@
 
 1) Give an example of a feature common in interpreted languages that is rare in compiled languages.
 
+> Dynamic types are very common in interpreted languages but very rare in compiled languages.
+
 2) Name two advantages of static typing over dynamic typing.
+
+> Static typing saves time for run-time type checking and also requires less space to save dynamic variable lists.
 
 3) Give an example of a static semantic error.
 
+> int array[1.5] would be a static semantic error since its a logical error due to the static type check failing.
+
 4) What are two reasons you might want to turn off code optimization?
+
+> Code optimization can hide bugs in your code and it can take much longer to compile.
 
 5) When you run `gcc` with `-S`, why might the results look different on different computers?
 
-6) If you spell a variable name wrong, or if you spell a function name wrong, 
-the error messages you get might look very different.  Why?
+> gcc -S generates the assembly code, which changes from computer to computer as the assembler is specific to machine CPU.
+
+6) If you spell a variable name wrong, or if you spell a function name wrong, the error messages you get might look very different.  Why?
+
+> Variable names will usually be grabbed by the compiler's syntax handler while a function name can be grabbed by the linker instead, generating a different error message.
 
 7) What is a segmentation fault?
+
+> When the code tries to read or write an incorrect location in memory.
 
 
 ## Chapter 2
