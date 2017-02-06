@@ -39,13 +39,23 @@
 
 1) Give a real-world example of virtualization (ideally not one of the ones in the book).
 
+> A real world example of virtualization is cellphone service. It seems that we are connected wirelessly to every single other phone whlie instead we are connected via routing of many different cell towers and cables. This abstracts away the need to select a tower and the cables and instead make it seem like everybody is connected.
+
 2) What is the difference between a program and a process?
+
+> A process is what runs a program and keeps track of the instructions and memory locations. The program defines what is to be done instead.
 
 3) What is the primary purpose of the process abstraction?  What illusion does the process abstraction create?
 
+> The primary purpose of process abstraction is to make it easier for programmers to write code without having to think about how it works under the hood. The illusion it creates is of a single dedicated processor running our code, when in reality there are many process and interruptions that are being abstracted away.
+
 4) What is the kernel?
 
+> The kernel is the part of the operating system responsible for core operations. These include thread creation.
+
 5) What is a daemon?
+
+> A daemon is an OS process designed to run in the background and provide some services such as process creation or system logging.
  
 
 ## Chapter 3
