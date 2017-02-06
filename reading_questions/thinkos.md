@@ -65,29 +65,103 @@
 
 1) The Georgian alphabet has 33 letters.  How many bit are needed to specify a letter?
 
+> 2^5 = 32 and 2^6 = 64 so we would require 5 bits to specify a Georgian letter
+
 2) In the UTF-16 character encoding, the binary representation of a character can take up to 32 bits.  
 Ignoring the details of the encoding scheme, how many different characters can be represented?
 
+> For 32 bits, we would be able to represent 2^32 characters, so 4,294,967,296 different characters (without an encoding scheme) could be represented.
+
 3) What is the difference between "memory" and "storage" as defined in Think OS?
+
+> Memory is used to describe the volatile RAM while storage is used to define read-write memory such as HDD's and SDD's. 
 
 4) What is the difference between a GiB and a GB?  What is the percentage difference in their sizes?
 
+> GiB is the binary unit for gibibyte while a GB is the decimal unit gigabyte: GiB is 1024^3 and GB is 1000^3.  GiB is 6.87% larger than GB.
+
 5) How does the virtual memory system help isolate processes from each other?
+
+> Each process manages its own memory (virtual) as if it is the only thing using it. So each process will write to its own virtual addresses which the OS can map to physical addresses. This allows the OS to distinguish memory between processes without the processes needing to do this manually.
 
 6) Why do you think the stack and the heap are usually located at opposite ends of the address space?
 
+> I think this is done such that they can grow independently with low risk of collision and also prevents the OS from having to impose a hard limit on each one. If they grew from the same side, the heap or stack would have to have a hard start location as to not cause errors.
+
 7) What Python data structure would you use to represent a sparse array?
+
+> I would use a dictionary to represent a sparse array.
 
 8) What is a context switch?
 
+> A context switch is when a process is interrupted, the state is saved and then another process is started up instead of it.
+
 In this directory, you should find a subdirectory named `aspace` that contains `aspace.c`.  Run it on your computer and compare your results to mine.
+
+> Results:
+>  main is 0x40057d
+>  global is 0x60104c
+>  local is 0x7fffffffde94
+>  p is 0x602010
   
 1) Add a second call to `malloc` and check whether the heap on your system grows up (toward larger addresses).  
 
+> Results:
+
+>  main is 0x40057d
+
+>  global is 0x60104c
+
+>  local is 0x7fffffffde8c
+
+>  new_malloc is 0x602010
+
+>  p is 0x6020a0
+
+> The heap did indead grow, towards larger addresses: 0x602010 -> 0x6020a0.
+
 2) Add a function that prints the address of a local variable, and check whether the stack grows down.  
+
+> Results:
+
+>  main is 0x4005a4
+
+>  global is 0x60104c
+
+>  local is 0x7fffffffde8c
+
+>  new_malloc is 0x602010
+
+>  p is 0x6020a0
+
+>  to_print is 0x7fffffffde6c
+
+> The fact that to_print is located on the stack along with the growith seen in main indicates that the stack has indeed grown down: 0x7fffffffde8c -> 0x7fffffffde6c.
 
 3) Choose a random number between 1 and 32, and allocate two chunks with that size.  
 How much space is there between them?  Hint: Google knows how to subtract hexadecimal numbers.
+
+> I choose the number 13. I allocate them using malloc(13) at the beginning and end of main.
+
+> Results:
+
+>  main is 0x4005a4
+
+>  global is 0x60104c
+
+>  local is 0x7fffffffde7c
+
+>  new_malloc is 0x602030
+
+>  p is 0x6020c0
+
+>  to_print is 0x7fffffffde5c
+
+>  chunk1 is 0x602010
+
+>  chunk2 is 0x602150
+
+> The space between them is 0x602150 - 0x602010 = 0x140, which is 320 in decimal.
 
 
 ## Chapter 4
