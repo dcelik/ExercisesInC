@@ -10,7 +10,9 @@ I think that our sprint went pertty well. We did a good job of setting deliverab
 I completed Exercises 1, 2, and 2.5. All of the supporting code and Markdown notes can be found at the links below:
 
 [Exercise 1](../exercises/ex01/)
+
 [Exercise 2](../exercises/ex02/)
+
 [Exercise 2.5](../exercises/ex02.5/)
 
 ##Think OS Reading Questions
