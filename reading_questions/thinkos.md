@@ -172,19 +172,33 @@ How much space is there between them?  Hint: Google knows how to subtract hexade
 1) What abstractions do file systems provide?  Give an example of something that is logically 
 true about files systems but not true of their implementations.
 
+> File systems abstract away the location and ordering of files and instead provide just a mapping of keys that allow us to find the contents as values. It also maps these locations (which represent streams of bytes) to file names that the sees. Logically file systems are just a collection of bytes that represents a file while the implementation actually collects the blocks as the minimum size rather than the bytes.
+
 2) What information do you imagine is stored in an `OpenFileTableEntry`?
 
+> I imagine that OpenFileTableEntry contains the location that it is pulling data from (the file), the next byte to read (cursor location), and the position in memory in which it is loading the file (RAM).
+
 3) What are some of the ways operating systems deal with the relatively slow performance of persistent storage?
+
+> Operating systems deal with the relative slow down in performance by switching to another process while waiting for the data to be retrieved from disk. Other ways of dealing with this slowdown include transfering multiple blocks at the same time (prefetching) and saving the block to the cache in order to modify it several times without reloading (buffering/caching).
 
 4) Suppose your program writes a file and prints a message indicating that it is done writing.  
 Then a power cut crashes your computer.  After you restore power and reboot the computer, you find that the 
 file you wrote is not there.  What happened?
 
+> The file may have only been written to the buffer and not yet been written to the persistent storage yet. Since this difference is abstracted away, the file being printed does not necessarily mean the file has been written.
+
 5) Can you think of one advantage of a File Allocation Table over a UNIX inode?  Or an advantage of a inode over a FAT?
+
+> FAT does not have a max size while inode does, in addition the FAT table stores the file info in a single area rather than loading into every file's location. This is critical because the advantage inodes have over FAT is that that data is stored with the file rather than a central location. This back and forth gives inode a slight disadvantage when moving or enlarging files, since more info has to be moved and carried around, rather than just changing the pointer in the FAT table.
 
 6) What is overhead?  What is fragmentation?
 
+> Overhead is the extra space used by the allocator that cannot be used for data and also includes any performance hits that is taken due to this extra data usage. Fragmentation is when some blocks are used and some are unused. This makes it such that you cannot fill this space with file blocks that exceed the empty area.
+
 7) Why is the "everything is a file" principle a good idea?  Why might it be a bad idea?
+
+> The everything is a file is useful since it allows for processes to read and write very easily and operate with each other using a single API, that of a stream of bytes. This can be a bad idea because it provides a way to move strings and other objects into files that could be used malicioulsy to modify parts of the file system that should not be changed.
 
 If you would like to learn more about file systems, a good next step is to learn about journaling file systems.  
 Start with [this Wikipedia article](https://en.wikipedia.org/wiki/Journaling_file_system), then 
