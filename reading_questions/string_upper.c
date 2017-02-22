@@ -45,4 +45,5 @@ int main (int argc, char *argv[])
 	} else {
 		printf("Error taking in the given string");
 	}
+	return 0;
 }
