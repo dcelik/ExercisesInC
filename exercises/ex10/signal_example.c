@@ -36,9 +36,8 @@ void end_game(int sig)
 }
 
 void times_up(int sig) {
-    //puts("\nTIME'S UP!");
-    //raise(SIGINT);
-    flag=1;
+    flag = 1;
+    puts("\nTIME'S UP!");
 }
 
 int main(void) {
@@ -49,25 +48,25 @@ int main(void) {
     srandom((unsigned int) time(NULL));
 
     while(1) {
-	a = rand() % 11;
-	b = rand() % 11;
-	printf("\nWhat is %d times %d? ", a, b);
+	    a = rand() % 11;
+	    b = rand() % 11;
+	    printf("\nWhat is %d times %d? ", a, b);
 
-	alarm(5);
-	while (1){
-	    char* ret = fgets(txt, 4, stdin);
-	    if (ret) break;
-	}
+    	alarm(5);
+	    while (1){
+	        char* ret = fgets(txt, 4, stdin);
+	        if (ret) break;
+	    }
 
-	answer = atoi(txt);
-	if (answer == a * b) {
-	    score++;
-	} else {
-	    printf("\nWrong! Score: %i\n", score);
-	}
-	if (flag==1){
-	    
-	}
+	    answer = atoi(txt);
+	    if (answer == a * b) {
+	        score++;
+	    } else {
+	        printf("\nWrong! Score: %i\n", score);
+	    }
+	    if (flag){
+	        raise(SIGINT);
+	    }
     }
     return 0;
 }
