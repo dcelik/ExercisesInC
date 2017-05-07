@@ -3,6 +3,12 @@
 Copyright 2016 Allen B. Downey
 License: MIT License https://opensource.org/licenses/MIT
 
+
+Comments:
+
+
+
+When you fork a process, the stack and the heap are seperate. This makes sense, as the two processes occupy their own memory space.
  */
 
 #include <stdio.h>
@@ -19,6 +25,8 @@ License: MIT License https://opensource.org/licenses/MIT
 // error information
 extern int errno;
 
+int shared_int = 17;
+int *int_pointer = NULL;
 
 // get_seconds returns the number of seconds since the
 // beginning of the day, with microsecond precision
@@ -34,6 +42,10 @@ void child_code(int i)
 {
     sleep(i);
     printf("Hello from child %d.\n", i);
+    shared_int += 23+i;
+    printf("child shared_int is %d\n", shared_int);
+    *int_pointer +=1;
+    printf("child int_pointer %d\n", *int_pointer);
     exit(i);
 }
 
@@ -46,6 +58,9 @@ int main(int argc, char *argv[])
     pid_t pid;
     double start, stop;
     int i, num_children;
+    
+    int_pointer = malloc(sizeof(int))
+    *int_pointer = 42;
 
     // the first command-line argument is the name of the executable.
     // if there is a second, it is the number of children to create.
@@ -97,5 +112,7 @@ int main(int argc, char *argv[])
     stop = get_seconds();
     printf("Elapsed time = %f seconds.\n", stop - start);
     
+    printf("parent shared_int is %d\n", shared_int);
+    printf("parent int_pointer %d\n", int_pointer);
     exit(0);
 }
