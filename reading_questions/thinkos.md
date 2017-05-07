@@ -281,23 +281,39 @@ If you want to know more about how malloc works, read
 
 1) What happens if a program writes a new value into the program counter?
 
+> When a new program is written, the program will jump to another location in the program.
+
 2) What is the fundamental problem caches are meant to solve?
+
+> Caches are meant to solve the speed disparity between CPU clock cycles and data/memory reading/writing.
 
 3) If cache access time is 1 ns and memory access time is 10 ns, what is the average
 access time of a program with hit rate 50%?  How about 90%?
+
+> 5ns for 50%, 1.9ns for 90%.
 
 4) The book gives several examples of programming language features, like loops, that tend 
 to improve locality in the access pattern of instructions and/or data.  Can you think of other examples?  
 Or counter-examples that might decrease locality?
 
+> Some other examples of improved locality might be seperating commonly used functions into distinct methods. This allows the data to be seperated in the stack and makes it easier for caching. Other examples would be using data types that fit in the cache, such as restricting arrays to be within the cache size.
+
 5)  If you refactor a program to improve locality, would you say the program is "cache aware"?  Why not?
+
+> No. Locality is not the only part required to be cache aware. In order to be cache aware, we have to modify the code to take into acocunt the size of the cache, the block size and other hardware features.
 
 6) See if you can estimate the cost of a memory cache by comparing the prices of two similar CPUs with 
 different cache sizes.
 
+> Based on Intel chips with varying levels of cache, I estimate that the cache will cost around $3-4K per GB.
+
 7) Why are cache policies generally more complex at the bottom of the memory hierarchy?
 
+> At the bottom of the hierarchy we have more time to make decisions and our decisions can make large impacts in speed.
+
 8) Can you think of a strategy operating systems could use to avoid thrashing or recover when it occurs?
+
+> Thrashing could be avoided by not allowing users to open more processes that could page data, or blocks processes until paging has slowed down.
 
 Run the cache code on your laptop or another computer and see if you can infer the cache size and block size.  
 If you can find the technical specifications for your computer, see if your inferences are right.
@@ -306,6 +322,7 @@ If you can find the technical specifications for your computer, see if your infe
 
 2) Run `python graph_data.py` to see the results.  What can you infer about the cache structure on your computer?
 
+I can infer from the data that our block size is around 1024B and a cache size of 838860B.
 
 ## Chapter 8
 
@@ -314,16 +331,27 @@ If you can find the technical specifications for your computer, see if your infe
 
 1) What is the kernel's most basic task?
 
+> It's most basic task is to handle interrupts.
+
 2) When an interrupt occurs, what part of the hardware state is saved by hardware?
+
+> The registers and the current program counter are saved.
 
 3) What is the difference between an interrupt and a context switch?
 
+> On an interupt, only the registers are saved and then the program is restored and continued. In a context switch, the memory is cleared to make way for a new program to run and save data.
+
 4) Give an example of an event that might cause a process to move from the blocked to the ready state.
+
+> An even that might cause a process to move from the blocked to the ready state would be an IO disk read to return data.
 
 5) Why might a scheduler want to give higher priority to an I/O bound process?
 
+> A scheduler would want to give higher priority since the IO part is going to be the slowest portion of the call. In addition, the CPU can do other operations while the IO bound process is blocked waiting for a response.
+
 When I make French toast, I usually make a batch of 12 slices.  But my griddle only has room for 8 slices.  Each piece of toast has to cook for 5 minutes on each side.  How can I schedule 12 slices onto 8 "cores" to minimize the elapsed time to cook all 12 slices?  (Note: this question is not hypothetical; this is really how I make French toast.)
 
+> Cook 8 on one side for 5 min. Remove 4 of the half cooked, flip the other 4, put 4 fresh on and cook for another 5 min. Take the completely cooked ones off and put the half cooked back on the ohter side. Cook for 5 more min and be done.
 
 
 ## Chapter 9
@@ -335,17 +363,27 @@ As you read Chapter 9, you should compile and run the example code.  By the natu
 
 1) Why does each thread have its own stack?
 
+> So that they can call functions and local variables wihtout interfering with each other.
+
 2) What does the `gcc flag -lpthread` do?
+
+> It compiles the file with the Pthread library linked in GCC.
 
 3) What does the argument of `pthread_exit` do?
 
+> It allows the passing of a value to the thread that joined this thread.
+
 4) Normally the same thread that created a thread also waits to join it.  What happens if another thread tries to join a thread it did not create?
+
+> Any thread can join any other thread, so this is fine.  
 
 5) What goes wrong if several threads try to increment a shared integer at the same time?
 
+> Synchronization errors can occur where another thread can increment the previous value at the same time another thread attempts to increment. THis can result in one of the increments being lost.
+
 6) What does it mean to "lock a mutex"?
 
-
+> Locking a mtuex prevents other threads from continuing execution until they can obtain the unlocked mutex.
 
 ## Chapter 10
 
@@ -354,23 +392,37 @@ As you read Chapter 9, you should compile and run the example code.  By the natu
 
 1) What does it mean to say that a data structure is thread safe?
 
+> A thread safe data structure means the multiple threads can access the data structure at the same time.
+
 2) In the circular buffer implementation of a queue, why is the maximum number of elements in the queue `n-1`,
 if `n` is the size of the array?
+
+> In the circular buffer, we require a start element that tells us when the buffer is "empty".
 
 3) If there is no mutex to protect the queue, give an example of a sequence of steps that could leave
 the queue in an inconsistent state.
 
+> Thread 1 pushes the value 2 to the Queue. Thread 2 pops the 2 and puts in 3. Thread 3 pops thinking that the top value in the queue is from Thread 1.
+
 4) When a thread calls cond_wait, why does it have to unlock the mutex before blocking?
+
+> If it does not unlock the mutex, no other thread would be able to obtain the mutex.
 
 5) When a thread returns from cond_wait, what do we know is definitely true?  What do we think is probably true?
 
+> We think it is probably true, as something might have changed between the condition variable changing and us waking up.
+
 6) What happens if you signal a condition variable when there are no waiting threads?
+
+> If there are no waiting threads, the signal has no effect.
 
 7) Do you have to lock the mutex to signal a condition variable?
 
+> Yes, you must lock the mutex, signal the condition variable and then unlock the mutex.
+
 8) Does the condition have to be true when you signal a condition variable?
 
-
+> Yes, you must signal the condition variable.
  
 ## Chapter 11
 
